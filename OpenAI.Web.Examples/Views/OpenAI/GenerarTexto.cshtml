@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Generación de Texto";
+}
+
+<div class="container my-4">
+    <h2 class="text-center mb-4 text-light">Consultar datos de venta</h2>
+    
+    <!--formulario de consulta-->
+    <form asp-action="ConsultarDatos" method="POST" class="bg-dark p-4 rounded shadow-lg">
+        <div class="mb-3">
+            <label for="datos" class="form-label text-light">Haz una pregunta acerca de los datos de venta (Ej.: dame las ventas del producto con ID: 1)</label>
+            <input type="text" name="consulta" class="form-control" id="consulta" placeholder="Ingresa tu pregunta aquí" />
+        </div>
+        <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i> Consultar</button>
+    </form>
+
+    <!--resultado de openai-->
+    @if(Model != null)
+    {
+        <div class="mt-4">
+            <div class="card bg-dark text-light border-primary shadow-lg">
+                <div class="card-header">
+                    <h5 class="card-title"><i class="bi bi-chat-left-dots"></i> Respuesta OpenAI</h5>
+                </div>
+                <div class="card-body">
+                    <pre class="text-wrap border p-3 rounded bg-secondary">@Html.Raw(Model)</pre>
+                </div>
+            </div>
+        </div>
+    }
+</div>
