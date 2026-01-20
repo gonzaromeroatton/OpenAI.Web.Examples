@@ -70,7 +70,7 @@ public sealed class OpenAIController : Controller
         // Construimos un mensaje
         var prompt = $"el usuario preguntó: {consulta} \n\n aquí estan los datos de ventas: \n";
 
-        foreach(var item in transacciones)
+        foreach (var item in transacciones)
         {
             prompt += $"Id: {item.Id}, Fecha: {item.Fecha.ToShortDateString()}, ClienteId: {item.ClienteId}, " +
                 $"ProductoId: {item.ProductoId}, Cantidad: {item.Cantidad}, MontoTotal: {item.MontoTotal}, MetodoPago: {item.MetodoPago}, Estado: {item.Estado} \n";
@@ -117,6 +117,11 @@ public sealed class OpenAIController : Controller
 
         // Puedes procesar la respuesta y pasarla a la vista si es necesario
         return View("GenerarChat");
+    }
+
+    public IActionResult DeteccionObjectos()
+    {
+        return View();
     }
 
     /// <summary>

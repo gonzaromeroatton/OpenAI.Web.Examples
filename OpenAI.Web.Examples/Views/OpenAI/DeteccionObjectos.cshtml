@@ -1,0 +1,54 @@
+﻿@using Microsoft.Extensions.AI
+@{
+    ViewData["Title"] = "Detección de Objetos";
+}
+
+<h2 class="text-center mb-4 text-light">Chat con OpenAI</h2>
+
+<div class="container my-4">
+
+    <!--historial del chat-->
+    <div class="chat-box border rounded p-3 mb-3" style="height: 400px; overflow: auto; background-color: #2c3e50; color: white;">
+        @{
+            var historial = ViewBag.Historial as List<ChatMessage>;
+        }
+
+        @if (historial != null && historial.Count > 0)
+         {
+            foreach (var mensaje in historial)
+            {
+                <div class="d-flex mb-2">
+                    @if (mensaje.Role == ChatRole.User)
+                    {
+                        <div class="alert-primary texct-dark w-75 ms-auto">
+                            <strong><i class="fas fa-user"></i> Tú:</strong> @mensaje.Contents[0]
+                        </div>
+                    }
+                    else if (mensaje.Role == ChatRole.Assistant)
+                    {
+                        <div class="alert-secondary texct-dark w-75">
+                            <strong><i class="fas fa-robot"></i> IA:</strong> @mensaje.Contents[0]
+                        </div>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-center text-white">No hay historial de conversación disponible.</p>
+        }
+    </div>
+
+    <!--formulario para enviar mensajes-->
+    <form asp-action="EnviarMensaje" method="POST" class="bg-dark p-4 rounded shadow-lg">
+        <div class="mb-3">
+            <label for="mensaje" class="form-label text-light">Escriba su mensaje:</label>
+            <textarea name="mensaje" class="form-control" id="mensaje" rows="3" required placeholder="Escribe tu mensaje aquí"></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-success w-50 btn-lg" style="background-color: rgba(39, 174, 96, 0.5); border: rgba(39, 174, 96, 0.5);">
+                <i class="fas fa-paper-plane"></i> Enviar
+            </button>
+        </div>
+    </form>
+</div>
